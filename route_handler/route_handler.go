@@ -1,7 +1,6 @@
 package route_handler
 
 import (
-	"net/http"
 	"web_server/http_context"
 )
 
@@ -11,6 +10,6 @@ type Routable interface {
 
 // 路由分发处理
 type RouteHandler interface {
-	http.Handler
+	ServeHTTP(c http_context.HttpContext)
 	Routable
 }
