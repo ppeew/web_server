@@ -27,6 +27,7 @@ func (r *routeHandlerBasedOnMap) ServeHTTP(writer http.ResponseWriter, request *
 	if f, ok := r.m[key]; ok {
 		//找到 做路由处理
 		c := http_context.NewDefaultHttpContext(writer, request)
+		//调用
 		f(c)
 	} else {
 		//找不到
@@ -41,5 +42,7 @@ func (r *routeHandlerBasedOnMap) key(method string, path string) string {
 }
 
 func NewRouteHandlerBasedOnMap() *routeHandlerBasedOnMap {
-	return &routeHandlerBasedOnMap{}
+	return &routeHandlerBasedOnMap{
+		m: make(map[string]func(c http_context.HttpContext), 5),
+	}
 }

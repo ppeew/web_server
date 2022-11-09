@@ -18,7 +18,7 @@ func SignUp(c http_context.HttpContext) {
 
 func main() {
 	svr := server.NewDefaultServer("defaultServer")
-	svr.Route("GET", "user_login", SignUp)
+	svr.Route("GET", "/user_login", SignUp)
 	err := svr.Start(":8080")
 	if err != nil {
 		panic(err)

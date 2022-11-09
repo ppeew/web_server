@@ -18,7 +18,6 @@ func (d *defaultHttpServer) Route(method string, pattern string, handlerFunc fun
 	//http.HandleFunc(pattern, func(writer http.ResponseWriter, request *http.Request) {
 	//	//hc := http_context.NewDefaultHttpContext(writer, request)
 	//	//handlerFunc(hc)
-	//	d.RouteHandler.Route(method, pattern, handlerFunc)
 	//})
 
 	//注册路由
@@ -26,7 +25,7 @@ func (d *defaultHttpServer) Route(method string, pattern string, handlerFunc fun
 }
 
 func (d *defaultHttpServer) Start(address string) error {
-	return http.ListenAndServe(address, route_handler.NewRouteHandlerBasedOnMap())
+	return http.ListenAndServe(address, d.routeHandler)
 }
 
 func NewDefaultServer(name string) Server {
