@@ -1,9 +1,9 @@
 package server
 
-import "web_server/http_context"
+import "web_server/route_handler"
 
 type Server interface {
-	//命中路由时处理函数hanlerFunc
-	Route(method string, pattern string, handlerFunc func(c http_context.HttpContext))
+	route_handler.Routable
+
 	Start(address string) error
 }
