@@ -20,6 +20,6 @@ func TimeFilterBuilder(f Filter) Filter {
 		start := time.Now().UnixNano()
 		f(c)
 		end := time.Now().UnixNano()
-		fmt.Printf("run time is:%d\n", end-start)
+		fmt.Printf("run time is:%d nano\n", end-start)
 	}
 }
