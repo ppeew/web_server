@@ -76,17 +76,17 @@ func (d *DefaultHttpServer) RejectNewRequestAndWaiting(ctx context.Context) erro
 }
 
 // 用于过滤用的,当服务器关闭，拒绝新连接
-func (g *DefaultHttpServer) ShutdownFilterBuilder(f filter_builder.Filter) filter_builder.Filter {
+func (d *DefaultHttpServer) ShutdownFilterBuilder(f filter_builder.Filter) filter_builder.Filter {
 	return func(c http_context.HttpContext) {
-		if atomic.LoadUint32(&g.closing) >= 1 {
+		if atomic.LoadUint32(&d.closing) >= 1 {
 			c.WriteJson(http.StatusServiceUnavailable, nil)
 			return
 		}
-		atomic.AddInt64(&g.requestCount, 1)
+		atomic.AddInt64(&d.requestCount, 1)
 		f(c)
-		atomic.AddInt64(&g.requestCount, -1)
-		if atomic.LoadInt64(&g.requestCount) == 0 {
-			g.zeroRequestCh <- struct{}{}
+		atomic.AddInt64(&d.requestCount, -1)
+		if atomic.LoadInt64(&d.requestCount) == 0 {
+			d.zeroRequestCh <- struct{}{}
 		}
 	}
 }
